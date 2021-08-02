@@ -39,11 +39,10 @@ function App() {
       <main>
         <Router>
           <Switch>
-            {isLoading || (
-              <Route exact path='/'>
-                {isAuthenticated ? <Home /> : <Redirect to='/login' />}
-              </Route>
-            )}
+            <Route exact path='/'>
+              {isLoading ||
+                (isAuthenticated ? <Home /> : <Redirect to='/login' />)}
+            </Route>
             <Route path='/login'>
               <Login />
             </Route>
