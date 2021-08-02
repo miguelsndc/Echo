@@ -1,20 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { signInWithProviderAsync } from '../../store/ducks/auth'
 import { Container, Button } from './styles'
 import { firebase } from '../../services/firebase'
 
 const Login = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const error = useSelector(state => state.auth.error)
 
   function handleLoginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider()
-    dispatch(signInWithProviderAsync(provider))
+    dispatch(signInWithProviderAsync(provider)).then(() => {
+      history.push('/')
+    })
   }
 
   function handleLoginWithGithub() {
     const provider = new firebase.auth.GithubAuthProvider()
-    dispatch(signInWithProviderAsync(provider))
+    dispatch(signInWithProviderAsync(provider)).then(() => {
+      history.push('/')
+    })
   }
 
   return (

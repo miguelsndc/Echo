@@ -66,11 +66,11 @@ export const signOutAsync = () => {
 
 export const signInWithProviderAsync = provider => {
   return async dispatch => {
-    try {
-      const results = await auth.signInWithPopup(provider)
-      dispatch(loginWithProvider(results.user))
-    } catch (error) {
-      dispatch(giveErrorFeedback(error))
-    }
+    return auth
+      .signInWithPopup(provider)
+      .then(results => {
+        dispatch(loginWithProvider(results.user))
+      })
+      .catch(error => dispatch(giveErrorFeedback(error)))
   }
 }
