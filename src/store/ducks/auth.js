@@ -5,6 +5,7 @@ import { auth } from '../../services/firebase'
 export const SIGN_OUT = 'echo/auth/SIGN_OUT'
 export const LOGIN_WITH_PROVIDER = 'echo/auth/LOGIN_WITH_PROVIDER'
 export const GIVE_ERROR_FEEDBACK = 'echo/auth/GIVE_ERROR_FEEDBACK'
+export const PERSIST_AUTH_STATE = 'echo/auth/PERSIST_AUTH_STATE'
 
 // Reducer
 
@@ -33,6 +34,12 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         error: action.payload,
+      }
+    case PERSIST_AUTH_STATE:
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
       }
     default:
       return state
