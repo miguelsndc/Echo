@@ -48,7 +48,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 
 // Action Creators
 
-export const logOut = () => ({
+export const signOut = () => ({
   type: SIGN_OUT,
 })
 
@@ -67,7 +67,7 @@ export const giveErrorFeedback = error => ({
 export const signOutAsync = () => {
   return async dispatch => {
     await auth.signOut()
-    dispatch(logOut())
+    dispatch(signOut())
   }
 }
 
