@@ -5,10 +5,7 @@ export const createNewMessage = message =>
     db.collection('channel')
       .add(message)
       .then(docRef => {
-        docRef.get().then(docSnapshot => {
-          const data = { id: docSnapshot.id, ...docSnapshot.data() }
-          resolve(data)
-        })
+        resolve(docRef)
       })
   })
 
