@@ -2,13 +2,30 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: 980px;
+  max-width: 1080px;
   padding: 1rem;
   height: 92vh;
   margin: 0 auto;
 `
 export const Messages = styled.section`
   height: 90%;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.gray200};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.gray600};
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${({ theme }) => theme.gray700};
+  }
 `
 
 export const Form = styled.form`
