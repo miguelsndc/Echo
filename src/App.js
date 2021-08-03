@@ -20,14 +20,11 @@ import { auth } from './services/firebase'
 import './services/firebase'
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true)
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const dispatch = useDispatch()
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) dispatch({ type: PERSIST_AUTH_STATE, payload: user })
-      setIsLoading(false)
     })
 
     return () => unsubscribe()
@@ -40,8 +37,7 @@ function App() {
         <Router>
           <Switch>
             <Route exact path='/'>
-              {isLoading ||
-                (isAuthenticated ? <Home /> : <Redirect to='/login' />)}
+              <Home />
             </Route>
             <Route path='/login'>
               <Login />
