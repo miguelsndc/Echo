@@ -5,7 +5,8 @@ export const Wrapper = styled.header`
   height: 8vh;
 
   nav {
-    width: 80%;
+    width: 90%;
+    max-width: 1080px;
     display: flex;
     align-items: center;
     justify-content: space-between;
