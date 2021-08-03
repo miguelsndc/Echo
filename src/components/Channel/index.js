@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTheme } from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,6 +17,7 @@ const Channel = () => {
   const dispatch = useDispatch()
   const messages = useSelector(state => state.channel.messages)
   const user = useSelector(state => state.auth.user)
+  const containerRef = useRef(null)
   const { register, handleSubmit, reset } = useForm()
 
   function handleCreateMessage(data) {
@@ -40,6 +41,11 @@ const Channel = () => {
   }
 
   useEffect(() => {
+    containerRef.current.scrollTop =
+      containerRef.current.scrollHeight - containerRef.current.clientHeight
+  }, [messages])
+
+  useEffect(() => {
     const unsubscribe = db
       .collection('channel')
       .orderBy('createdAt')
@@ -56,7 +62,7 @@ const Channel = () => {
 
   return (
     <Wrapper>
-      <Messages>
+      <Messages ref={containerRef}>
         {messages &&
           messages.map(message => {
             return (
