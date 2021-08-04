@@ -52,7 +52,7 @@ export const Wrapper = styled.article`
     margin-left: 2rem;
     margin-top: 0.45rem;
     display: inline-block;
-    max-width: 70%;
+    max-width: 75%;
     overflow-wrap: break-word;
     padding: 1rem;
 
@@ -68,6 +68,10 @@ export const Wrapper = styled.article`
 
     p {
       text-align: left;
+    }
+
+    @media (min-width: 768px) {
+      max-width: 70%;
     }
   }
 `
