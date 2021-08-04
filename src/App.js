@@ -1,11 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -14,7 +10,6 @@ import GlobalStyles from './styles/globals'
 import theme from './styles/theme'
 
 import { PERSIST_AUTH_STATE } from './store/ducks/auth'
-import { auth } from './services/firebase'
 
 import './services/firebase'
 
@@ -22,11 +17,8 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) dispatch({ type: PERSIST_AUTH_STATE, payload: user })
-    })
-
-    return () => unsubscribe()
+    const user = JSON.parse(localStorage.getItem('echo/user'))
+    if (user) dispatch({ type: PERSIST_AUTH_STATE, payload: { user } })
   }, [dispatch])
 
   return (

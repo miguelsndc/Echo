@@ -26,9 +26,9 @@ export default function reducer(state = INITIAL_STATE, action) {
     case LOGIN_WITH_PROVIDER:
       return {
         ...state,
-        user: action.payload,
-        isAuthenticated: true,
-        error: null,
+        user: action.payload.user,
+        isAuthenticated: action.payload.isAuthenticated,
+        error: action.payload.error,
       }
     case GIVE_ERROR_FEEDBACK:
       return {
@@ -54,7 +54,11 @@ export const signOut = () => ({
 
 export const loginWithProvider = user => ({
   type: LOGIN_WITH_PROVIDER,
-  payload: user,
+  payload: {
+    user,
+    isAuthenticated: true,
+    error: null,
+  },
 })
 
 export const giveErrorFeedback = error => ({
@@ -67,6 +71,7 @@ export const giveErrorFeedback = error => ({
 export const signOutAsync = () => {
   return async dispatch => {
     await auth.signOut()
+    localStorage.removeItem('echo/user')
     dispatch(signOut())
   }
 }
@@ -76,7 +81,19 @@ export const signInWithProviderAsync = provider => {
     return auth
       .signInWithPopup(provider)
       .then(results => {
-        dispatch(loginWithProvider(results.user))
+        const { uid, photoURL, displayName } = results.user
+
+        dispatch(
+          loginWithProvider({
+            uid,
+            photoURL,
+            displayName,
+          })
+        )
+        localStorage.setItem(
+          'echo/user',
+          JSON.stringify({ uid, photoURL, displayName })
+        )
       })
       .catch(error => dispatch(giveErrorFeedback(error)))
   }
