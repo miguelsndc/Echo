@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 `
 export const Messages = styled.section`
   height: 90%;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   ::-webkit-scrollbar {
     width: 10px;
